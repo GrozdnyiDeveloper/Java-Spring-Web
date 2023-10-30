@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body class="d-flex justify-content-center align-items-center text-center vh-100">
+<div th:switch="${model}">
+    <div th:case="order">
+        <form class="form" th:method="post" th:action="@{/editOrder}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение заказа</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <input class="form-control" type="hidden" th:field="*{status_ID}">
+            <input class="form-control" type="hidden" th:field="*{delivery_ID}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="number">Номер</label>
+                    <input class="form-control" type="number" required id="number" th:field="*{number}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="date">Дата создания</label>
+                    <input class="form-control" type="date" required id="date" th:field="*{date}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <input class="form-check-input" type="checkbox" id="payment" th:field="*{payment}">
+                    <label class="form-check-label" for="payment">Оплата</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="concurrencyId">Продавец</label>
+                <select class="form-select" id="concurrencyId" name="concurrencyId">
+                    <div th:each="element : ${concurrencies}">
+                        <option th:value="${element.getId()}" th:text="${element.getStaff().getEmail()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="staff">
+        <form th:method="post" th:action="@{/editStaff}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение сотрудника</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="last_name">Фамилия</label>
+                    <input class="form-control" type="text" required id="last_name" th:field="*{lastName}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Имя</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="middle_name">Отчество</label>
+                    <input class="form-control" type="text" id="middle_name" th:field="*{middleName}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="gender">Пол</label>
+                    <input class="form-control"  type="text" required id="gender" th:field="*{gender}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="email">Почта</label>
+                    <input class="form-control" type="text" required id="email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="password">Пароль</label>
+                    <input class="form-control"  type="text" required id="password" th:field="*{password}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="product">
+        <form th:method="post" th:action="@{/editProduct}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение продукта</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="number">Номер</label>
+                    <input class="form-control" type="text" required id="number" th:field="*{number}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="price">Цена</label>
+                    <input class="form-control" type="number" required id="price" th:field="*{price}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="amount">Количество</label>
+                    <input class="form-control" type="number" required id="amount" th:field="*{amount}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="storageId">Хранилище</label>
+                <select class="form-select" id="storageId" name="storageId">
+                    <div th:each="element : ${storages}">
+                        <option th:value="${element.getId()}" th:text="${element.getAddress()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="supplierId">Поставщик</label>
+                <select class="form-select" id="supplierId" name="supplierId">
+                    <div th:each="element : ${suppliers}">
+                        <option th:value="${element.getId()}" th:text="${element.getName()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="eventId">Акции</label>
+                <select class="form-select" id="eventId" name="eventId">
+                    <div th:each="element : ${events}">
+                        <option th:value="${element.getId()}" th:text="${element.getName()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="storage">
+        <form th:method="post" th:action="@{/editStorage}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение хранилища</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="address">Адрес</label>
+                    <input class="form-control" type="text" required id="address" th:field="*{address}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="capacity">Вместимость</label>
+                    <input class="form-control" type="number" required id="capacity" th:field="*{capacity}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="supplier">
+        <form th:method="post" th:action="@{/editSupplier}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение поставщика</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="event">
+        <form th:method="post" th:action="@{/editEvent}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение акции</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="category">
+        <form th:method="post" th:action="@{/editCategory}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение категории</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="buyer">
+        <form th:method="post" th:action="@{/editBuyer}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение покупателя</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="email">Почта</label>
+                    <input class="form-control" type="text" required id="email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="phone">Телефон</label>
+                    <input class="form-control" type="text" id="phone" th:field="*{phone}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="password">Пароль</label>
+                    <input class="form-control" type="text" required id="password" th:field="*{password}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="card">
+        <form th:method="post" th:action="@{/editCard}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение карты</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="number">Номер</label>
+                    <input class="form-control" type="number" required id="number" th:field="*{number}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="discount">Скидка</label>
+                    <input class="form-control" type="number" id="discount" th:field="*{discount}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="cart">
+        <form th:method="post" th:action="@{/editCart}" th:object="${object}">
+            <h1 class="display-5 mb-4">Изменение позиции корзины</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="amount">Количество товара</label>
+                    <input class="form-control" type="number" required id="amount" th:field="*{amount}">
+                </div>
+            </div>
+            <input class="form-control" type="hidden" th:field="*{status}">
+            <div class="mb-3">
+                <label class="mb-1" for="buyerId">Покупатель</label>
+                <select class="form-select" id="buyerId" name="buyerId">
+                    <div th:each="element : ${buyers}">
+                        <option th:value="${element.getId()}" th:text="${element.getEmail()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="complianceId">Продукт</label>
+                <select class="form-select" id="complianceId" name="complianceId">
+                    <div th:each="element : ${compliances}">
+                        <option th:value="${element.getId()}" th:text="${element.getProduct().getNumber()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Изменить">
+        </form>
+    </div>
+    <div th:case="categories">
+        <h1 class="display-5 mb-4">Изменение категорий продукту</h1>
+        <div class="mb-3">
+            <div class="form-group row justify-content-center align-items-center">
+                <label class="col-auto">Текущие категории: </label>
+                <form class="col-auto" th:each="item: ${object.get().getCategories()}" th:method="post" th:action="@{/removeCategory}" th:object="${object}">
+                    <input class="form-control" type="hidden" th:field="*{id}">
+                    <input class="form-control" type="hidden" name="categoryId" th:value="${item.getId()}">
+                    <input class="btn btn-danger" type="submit" th:value="${item.getName()}">
+                </form>
+            </div>
+        </div>
+        <form th:method="post" th:action="@{/addCategory}" th:object="${object}">
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <h3 class="mb-2" for="categoryId">Категория</h3>
+                <select class="form-select" id="categoryId" name="categoryId">
+                    <div th:each="element : ${categories}">
+                        <option th:value="${element.getId()}" th:text="${element.getName()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Добавить">
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

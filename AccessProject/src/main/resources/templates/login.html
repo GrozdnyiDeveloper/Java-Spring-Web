@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body class="d-flex justify-content-center align-items-center text-center vh-100">
+<div>
+    <form th:action="@{/login}" method="post" class="form">
+        <h1 class="display-4 pb-3">Авторизация</h1>
+        <div class="mb-3">
+            <div class="d-inline-flex align-items-center">
+                <label class="form-check-label pe-2">Почта:</label>
+                <input class="form-control" required type="email" name="username" >
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="d-inline-flex align-items-center">
+                <label class="form-check-label pe-2">Пароль: </label>
+                <input class="form-control" required type="password" name="password">
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary mt-2" type="submit">Войти</button>
+    </form>
+    <form action="/registration" method="get" class="d-flex mt-4">
+        <button type="submit" class="btn btn-outline-primary btn-lg m-auto">Перейти к регистрации</button>
+    </form>
+</div>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

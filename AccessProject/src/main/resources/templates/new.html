@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body class="d-flex justify-content-center align-items-center text-center vh-100">
+<div th:switch="${model}">
+    <div th:case="order">
+        <form th:method="post" th:action="@{/newOrder}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание заказа</h1>
+            <input class="form-control" type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="number">Номер</label>
+                    <input class="form-control" type="number" required id="number" th:field="*{number}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="date_of_making">Дата создания</label>
+                    <input class="form-control" type="date" required id="date_of_making" th:field="*{date}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <input class="form-check-input" type="checkbox" id="payment" th:field="*{payment}">
+                    <label class="form-check-label" for="payment">Оплата</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="concurrencyId">Продавец</label>
+                <select class="form-select" id="concurrencyId" name="concurrencyId">
+                    <div th:each="element : ${concurrencies}">
+                        <option th:value="${element.getId()}" th:text="${element.getStaff().getEmail()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="staff">
+        <form th:method="post" th:action="@{/editStaff}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание сотрудника</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="last_name">Фамилия</label>
+                    <input class="form-control" type="text" required id="last_name" th:field="*{lastName}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Имя</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="middle_name">Отчество</label>
+                    <input class="form-control" type="text" id="middle_name" th:field="*{middleName}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="gender">Пол</label>
+                    <input class="form-control"  type="text" required id="gender" th:field="*{gender}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="email">Почта</label>
+                    <input class="form-control" type="text" required id="email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="password">Пароль</label>
+                    <input class="form-control"  type="text" required id="password" th:field="*{password}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="product">
+        <form th:method="post" th:action="@{/newProduct}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание продукта</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="number">Номер</label>
+                    <input class="form-control" type="text" required id="number" th:field="*{number}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="price">Цена</label>
+                    <input class="form-control" type="number" required id="price" th:field="*{price}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="amount">Количество</label>
+                    <input class="form-control" type="number" required id="amount" th:field="*{amount}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="storageId">Хранилище</label>
+                <select class="form-select" id="storageId" name="storageId">
+                    <div th:each="element : ${storages}">
+                        <option th:value="${element.getId()}" th:text="${element.getAddress()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="supplierId">Поставщик</label>
+                <select class="form-select" id="supplierId" name="supplierId">
+                    <div th:each="element : ${suppliers}">
+                        <option th:value="${element.getId()}" th:text="${element.getName()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="eventId">Акции</label>
+                <select class="form-select" id="eventId" name="eventId">
+                    <div th:each="element : ${events}">
+                        <option th:value="${element.getId()}" th:text="${element.getName()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="storage">
+        <form th:method="post" th:action="@{/newStorage}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание хранилища</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="address">Адрес</label>
+                    <input class="form-control" type="text" required id="address" th:field="*{address}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="capacity">Вместимость</label>
+                    <input class="form-control" type="number" required id="capacity" th:field="*{capacity}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="supplier">
+        <form th:method="post" th:action="@{/newSupplier}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание поставщика</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="event">
+        <form th:method="post" th:action="@{/newEvent}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание акции</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="category">
+        <form th:method="post" th:action="@{/newCategory}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание категории</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="name">Название</label>
+                    <input class="form-control" type="text" required id="name" th:field="*{name}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="buyer">
+        <form th:method="post" th:action="@{/newBuyer}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание покупателя</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="email">Почта</label>
+                    <input class="form-control" type="email" required id="email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="phone">Телефон</label>
+                    <input class="form-control" type="text" id="phone" th:field="*{phone}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="password">Пароль</label>
+                    <input class="form-control" type="text" required id="password" th:field="*{password}">
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+    <div th:case="cart">
+        <form th:method="post" th:action="@{/newCart}" th:object="${object}">
+            <h1 class="display-5 mb-4">Создание позиции корзины</h1>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label class="mb-1" for="amount">Количество товара</label>
+                    <input class="form-control" type="number" required id="amount" th:field="*{amount}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="buyerId">Покупатель</label>
+                <select class="form-select" id="buyerId" name="buyerId">
+                    <div th:each="element : ${buyers}">
+                        <option th:value="${element.getId()}" th:text="${element.getEmail()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="mb-1" for="complianceId">Продукт</label>
+                <select class="form-select" id="complianceId" name="complianceId">
+                    <div th:each="element : ${compliances}">
+                        <option th:value="${element.getId()}" th:text="${element.getProduct().getNumber()}"></option>
+                    </div>
+                </select>
+            </div>
+            <input class="btn btn-lg btn-primary mt-3" type="submit" value="Создать">
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

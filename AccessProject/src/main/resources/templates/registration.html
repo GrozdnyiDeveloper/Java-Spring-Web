@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body class="d-flex justify-content-center align-items-center text-center vh-100">
+<div class="row justify-content-center">
+    <form action="/registration" method="post" class="form">
+        <div th:if="${error}" class="alert alert-danger" role="alert">
+            Пользователь с данной почтой уже зарегистрирован.
+        </div>
+        <h1 class="display-3">Регистрация</h1>
+        <div class="mb-3 mt-lg-4">
+            <div class="form-floating">
+                <input class="form-control" required type="email" placeholder="A" name="username">
+                <label>Почта</label>
+            </div>
+        </div>
+        <div class="mb-5">
+            <div class="form-floating">
+                <input class="form-control" required minlength="8" type="password" placeholder="A" name="password">
+                <label>Пароль</label>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+    </form>
+    <form action="/login" method="get" class="d-flex mt-4">
+        <button type="submit" class="btn btn-outline-primary btn-lg m-auto">Перейти к авторизации</button>
+    </form>
+</div>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

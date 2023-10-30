@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Все списки</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body class="m-1">
+<table class="table table-striped caption-top">
+    <caption class="display-6">Список пользователей</caption>
+    <thead>
+    <tr>
+        <td scope="col">Идентификатор</td>
+        <td scope="col">Почта</td>
+        <td scope="col">Пароль</td>
+        <td scope="col">Текущая роль</td>
+        <td scope="col">Смена роли</td>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item: ${users}">
+            <td scope="col" th:text="${item.getId()}"></td>
+            <td scope="col" th:text="${item.getUsername()}"></td>
+            <td scope="col" th:text="${item.getPassword()}"></td>
+            <td scope="col" th:text="${item.getRoles()}"></td>
+            <td scope="col">
+                <form th:method="post" th:action="@{/changeRole}">
+                    <select class="form-select" name="role">
+                        <div th:each="element : ${roles}">
+                            <option th:value="${element.name()}" th:text="${element.name()}"></option>
+                        </div>
+                    </select>
+                    <input type="hidden" name="username" th:value="${item.getUsername()}">
+                    <input class="btn btn-warning" type="submit" value="Сменить роль">
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>
